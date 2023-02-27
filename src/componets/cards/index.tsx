@@ -1,15 +1,17 @@
-import Container from "./styles";
+import { CardStyle } from "./styles";
 
 export interface cardsProps {
+  id?: string;
   produto: string;
   imgSrc: string;
   valor: number;
   quantidade: number;
+  delete?: any;
 }
 
 function Cards(props: cardsProps) {
   return (
-    <Container>
+    <CardStyle>
       <div>
         <img src={props.imgSrc}></img>
       </div>
@@ -25,7 +27,8 @@ function Cards(props: cardsProps) {
       <li>
         <strong>Total: </strong>R$ {props.quantidade * props.valor}
       </li>
-    </Container>
+      <button onClick={props.delete}>deletar</button>
+    </CardStyle>
   );
 }
 

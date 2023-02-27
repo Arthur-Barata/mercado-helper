@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { cardsProps } from "./componets/cards";
 import CardsList from "./componets/cardsList";
 import imageProvider from "./shared/image-provider";
@@ -11,6 +12,8 @@ function App() {
   const [quantity, setquantityValue] = useState(0);
   const [price, setPriceValue] = useState(0);
   const [fetching, setFetching] = useState(false);
+  var totalValue = 0;
+  const [total, setTotal] = useState(0);
 
   const [mainArray, setMainArray] = useState<cardsProps[]>([]);
 
@@ -29,24 +32,37 @@ function App() {
       setFetching(true);
       const response = await imageProvider(itemValue);
       setImageLink(response);
-      console.log(response, fetching);
     } catch (err) {
-      console.log(err);
+      setImageLink("https://cdn-icons-png.flaticon.com/512/4/4295.png");
+      console.log(imageLink);
     } finally {
       setFetching(false);
-      console.log(fetching);
     }
   }
 
   function add(event: any) {
     const newCard = {
+      id: uuidv4(),
       produto: itemValue,
       quantidade: quantity,
       valor: price,
       imgSrc: `${imageLink}`,
     };
+
     setMainArray([...mainArray, newCard]);
-    console.log(mainArray);
+    mainArray.map((el) => {
+      totalValue = Number(total) + Number(el.valor * el.quantidade);
+    });
+    setTotal(totalValue);
+  }
+  function deletar(id: string) {
+    console.log(id);
+    mainArray.map((el) => {
+      totalValue = Number(total) + Number(el.valor * el.quantidade);
+    });
+    setTotal(totalValue);
+    const updatedCards = mainArray.filter((el) => el.id !== id);
+    setMainArray(updatedCards);
   }
 
   return (
@@ -78,9 +94,10 @@ function App() {
             Adicionar
           </button>
         </div>
+        <h1>R${total}</h1>
       </div>
 
-      <CardsList card={mainArray}></CardsList>
+      <CardsList card={mainArray} deletar={deletar}></CardsList>
     </Container>
   );
 }
