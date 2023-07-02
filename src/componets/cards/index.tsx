@@ -1,6 +1,6 @@
 import Container from "./styles"
 
-interface cardsProps{
+export interface cardsProps{
     produto:string
     imgSrc:string
     valor:number
@@ -9,16 +9,12 @@ interface cardsProps{
 
 }
 
-
  function Cards (props:cardsProps){
-
-
     return(
         <Container> 
             <div>
                 <img src={props.imgSrc}></img>
              </div>
-               
                 <h2>{props.produto}  </h2> 
                 <li> <strong>Valor:</strong> R$ {props.valor}</li>
                 <li><strong>Quantidade:</strong> {props.quantidade}</li> 
@@ -26,9 +22,6 @@ interface cardsProps{
         </Container>
         
     )
-
-
-
 }
 
 export default Cards;
