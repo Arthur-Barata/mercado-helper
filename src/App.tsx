@@ -28,9 +28,8 @@ const imageSet =async ()=>{
   }catch(err){
     console.error(err)
   }
-  
-}
  
+
   return (
     <Container>
     <ItemsContext.Provider value={allItems}>
@@ -54,5 +53,5 @@ const imageSet =async ()=>{
     </Container>
   );
 }
-
+}
 export default App;
